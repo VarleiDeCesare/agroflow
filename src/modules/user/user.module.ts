@@ -1,15 +1,21 @@
 import { Module } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
-import { UsersRepository } from './repositories/prisma-users-interface';
+import { PrismaUsersRepository } from './repositories/prisma-users.repository';
+import HashProvider from 'src/providers/HashProvider';
 
 @Module({
   controllers: [UserController],
+
   providers: [
     UserService,
     {
       provide: 'UserRepository',
-      useClass: UsersRepository,
+      useClass: PrismaUsersRepository,
+    },
+    {
+      provide: 'HashProvider',
+      useClass: HashProvider,
     },
   ],
 })

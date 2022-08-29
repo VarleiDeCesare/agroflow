@@ -6,7 +6,7 @@ import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 
 @Injectable()
-export class UsersRepository implements IUsersRepository {
+export class PrismaUsersRepository implements IUsersRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
   async findAll(): Promise<User[]> {

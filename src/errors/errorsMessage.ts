@@ -3,7 +3,7 @@ export default {
   USER_NOT_FOUND: 'Usuário não encontrado',
   PASSWORDS_MUST_MATCH: 'A confirmação de senha não bate com a senha',
   PASSWORD_TOO_WEAK: 'Senha muito fraca',
-  OLD_PASSWORD_INCORRECT: 'A senha antiga não bate',
+  OLD_PASSWORD_INCORRECT: 'A senha antiga não está correta',
   LOGIN_CODE_EXPIRED: 'Código de login expirado',
   LOGIN_CODE_INVALID: 'Código de login inválido',
   FORGOT_PASSWORD_TOKEN_EXPIRED: 'Token Expirado',

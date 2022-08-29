@@ -1,8 +1,8 @@
 -- CreateTable
 CREATE TABLE "users" (
     "id" TEXT NOT NULL PRIMARY KEY,
-    "name" TEXT NOT NULL,
-    "surname" TEXT NOT NULL,
+    "name" TEXT,
+    "surname" TEXT,
     "email" TEXT NOT NULL,
     "password" TEXT,
     "cpf" TEXT,

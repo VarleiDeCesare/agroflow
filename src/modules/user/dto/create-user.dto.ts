@@ -12,12 +12,12 @@ import { IsCpf } from '../../../decorators/is-cpf.decorator';
 
 export class CreateUserDto {
   @ApiProperty()
-  @IsDefined()
-  name: string;
+  @IsOptional()
+  name?: string;
 
   @ApiProperty()
   @IsOptional()
-  surname: string;
+  surname?: string;
 
   @ApiProperty()
   @IsOptional()
@@ -42,5 +42,5 @@ export class CreateUserDto {
   @ApiProperty({ required: false })
   @IsCpf()
   @IsOptional()
-  cpf: string;
+  cpf?: string;
 }
