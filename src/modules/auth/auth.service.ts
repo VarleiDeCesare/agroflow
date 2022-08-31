@@ -26,6 +26,7 @@ import { ResetForgotedPasswordDto } from './dto/reset-forgoted-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { JwtPayloadDto } from './dto/jwt-payload.dto';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import { User } from '../user/entities/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -41,6 +42,32 @@ export class AuthService {
     @Inject(WINSTON_MODULE_NEST_PROVIDER) private logger?: LoggerService,
   ) {}
 
+  public async validateUser(email: string, pass: string): Promise<User> {
+    const user = await this.UserService.findByEmail(email);
+
+    if (!user || !user?.password) {
+      throw new HttpException(
+        errorsMessages.UNAUTHORIZED,
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+
+    const passwordMatches = await this.hashProvider.compare(
+      pass,
+      user.password,
+    );
+
+    if (!passwordMatches) {
+      throw new HttpException(
+        errorsMessages.UNAUTHORIZED,
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+
+    delete user.password;
+
+    return user;
+  }
   public async forgotPassword(data: ForgotPasswordDto) {
     const { email } = data;
 
@@ -268,18 +295,9 @@ export class AuthService {
     const { user, ...rest } = data;
     const { email, id: userId } = user;
 
-    const roles = user?.roles?.map((role) => role.slug);
-    const permissions = user?.roles?.reduce((total, current) => {
-      return total.concat(
-        current.permissions.map((permission) => permission.slug),
-      );
-    }, []);
-
     const payload: JwtPayloadDto = {
       sub: userId,
       email,
-      roles,
-      permissions,
       id: user.id,
     };
 

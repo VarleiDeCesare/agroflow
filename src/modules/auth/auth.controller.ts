@@ -18,8 +18,6 @@ import {
 import { CurrentUser } from '../../decorators/current-user.decorator';
 import { DeviceHeaders } from '../../decorators/device-headers.decorator';
 import { Public } from '../../decorators/public.decorator';
-import { Roles } from '../../decorators/roles.decorator';
-import { DefaultRoles } from '../acl/enum/default-roles.enum';
 import { User } from '../user/entities/user.entity';
 import { AuthService } from './auth.service';
 import { AuthenticateResponseDto } from './dto/authenticate-response.dto';
@@ -75,7 +73,6 @@ export class AuthController {
     description: 'Usuário deslogado',
   })
   @ApiBearerAuth()
-  @Roles(DefaultRoles.SYSADMIN)
   @Post('logout-user/:id')
   public async logoutUser(@Param('id') id: string) {
     this.authService.logoutUser(id);
@@ -86,7 +83,6 @@ export class AuthController {
     description: 'Usuários deslogados',
   })
   @ApiBearerAuth()
-  @Roles(DefaultRoles.SYSADMIN)
   @Post('logout-all-users')
   public async logoutAllUsers() {
     await this.authService.logoutAllUsers();

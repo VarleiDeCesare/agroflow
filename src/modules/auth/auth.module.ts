@@ -9,7 +9,6 @@ import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import authConfig from '../../config/auth.config';
 import { JwtStrategy } from './jwt.strategy';
-import { RedisAuthRepository } from './repositories/redis-auth.repository';
 import MailTemplateProvider from '../../providers/MailTemplateProvider';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './jwt-auth.guard';
@@ -22,10 +21,6 @@ import { JwtAuthGuard } from './jwt-auth.guard';
     {
       provide: 'HashProvider',
       useClass: HashProvider,
-    },
-    {
-      provide: 'AuthRepository',
-      useClass: RedisAuthRepository,
     },
     {
       provide: 'MailProvider',

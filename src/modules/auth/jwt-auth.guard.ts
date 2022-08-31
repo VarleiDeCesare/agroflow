@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
-import errorsMessages from '../../errors/errorsMessages';
+import errorsMessages from '../../errors/errorsMessage';
 import { IS_PUBLIC_KEY } from 'src/decorators/public.decorator';
 
 @Injectable()

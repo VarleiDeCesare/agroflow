@@ -1,4 +1,4 @@
-import { User } from 'src/modules/users/entities/user.entity';
+import { User } from '../../user/entities/user.entity';
 
 export class LoginDataDto {
   user: User;

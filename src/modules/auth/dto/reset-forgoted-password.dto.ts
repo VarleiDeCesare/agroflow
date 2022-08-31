@@ -7,7 +7,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import errorsMessages from 'src/errors/errorsMessages';
+import errorsMessages from '../../../errors/errorsMessage';
 
 export class ResetForgotedPasswordDto {
   @ApiProperty()
