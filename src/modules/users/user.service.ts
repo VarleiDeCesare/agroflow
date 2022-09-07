@@ -17,6 +17,10 @@ export class UserService {
     private readonly hashProvider: IHashProvider,
   ) {}
 
+  public async findAll(): Promise<User[]> {
+    return this.userRepository.findAll();
+  }
+
   async create(data: CreateUserDto) {
     const { email, password, passwordConfirmation } = data;
 
@@ -145,7 +149,6 @@ export class UserService {
 
   async remove(id: string) {
     await this.findOne(id);
-
     await this.userRepository.delete(id);
   }
 }

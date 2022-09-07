@@ -8,5 +8,5 @@ export default interface IUsersRepository {
   findByEmail(email: string): Promise<User | undefined>;
   create(data: CreateUserDto): Promise<User>;
   update(id: string, data: UpdateUserDto): Promise<User>;
-  delete(email: string): Promise<void>;
+  delete(id: string): Promise<void>;
 }

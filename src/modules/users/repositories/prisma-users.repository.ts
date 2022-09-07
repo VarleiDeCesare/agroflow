@@ -36,9 +36,9 @@ export class PrismaUsersRepository implements IUsersRepository {
     });
   }
 
-  async delete(email: string): Promise<void> {
+  async delete(id: string): Promise<void> {
     this.prismaService.user.delete({
-      where: { email },
+      where: { id },
     });
   }
 }

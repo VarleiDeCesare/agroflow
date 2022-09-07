@@ -18,5 +18,6 @@ import HashProvider from 'src/providers/HashProvider';
       useClass: HashProvider,
     },
   ],
+  exports: [UserService],
 })
 export class UserModule {}
