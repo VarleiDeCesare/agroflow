@@ -1,0 +1,48 @@
+version: "3.8"
+services:
+  api:
+    container_name: core-back
+    command:
+      - sh
+      - -c
+      - yarn && yarn prisma migrate dev && yarn build && node ./dist/database/seed/index.js && yarn start:dev
+    build:
+      context: ./core-back
+      dockerfile: Dockerfile.dev
+    image: core-back
+    volumes:
+      - ./core-back:/app
+    ports:
+      - 3001:3001
+    environment:
+      PORT: 3001
+      FORGOT_PASSWORD_FRONT_URL:
+      ENTERPRISE_NAME: Agrotehc
+      DATABASE_URL: "postgresql://admin:admin@postgresql-bd:5432/agrotehc?schema=public"
+      HASH_PROVIDER: bcrypt
+      JWT_EXPIRES_IN: 86400
+      JWT_SECRET: hml_secret
+      JWT_REFRESH_TOKEN_EXPIRES_IN: 172800
+      FORGOT_PASSWORD_TOKEN_EXPIRES_IN: 1800
+      AWS_ACCESS_KEY_ID:
+      AWS_SECRET_ACCESS_KEY:
+      AWS_SES_REGION:
+      ENCRYPT_PROVIDER: crypto
+      CRYPTO_KEY: 3c6e0b8a9c15224a8228b9a98ca1531d
+      CRYPTO_ENCRYPTION_ALGORITHM: aes256
+      CRYPTO_ENCODING: base64
+    depends_on:
+      - postgresql-bd
+  postgresql-bd:
+    image: postgres:14-alpine
+    container_name: postgresql-bd
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=agrotehc
+    volumes:
+      - agrotehc:/var/lib/postgresql-bd/data
+    ports:
+      - 5432:5432
+volumes:
+  agrotehc:

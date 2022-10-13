@@ -1,10 +1,9 @@
 generator client {
   provider = "prisma-client-js"
 }
-
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = "postgresql://admin:admin@localhost:5432/agrotehc?schema=public"
 }
 
 model User {
