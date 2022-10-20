@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { User as UserEntity } from '../users/entities/user.entity';
 import { UserService } from '../users/user.service';
 import { compareSync } from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
-
+import errorsMessages from '../../errors/errorsMessage';
 @Injectable()
 export class AuthService {
   constructor(
@@ -13,22 +13,28 @@ export class AuthService {
 
   async login(user) {
     const payload = { sub: user.id, email: user.email };
-
     return {
       token: this.jwtService.sign(payload),
     };
   }
 
   async validateUser(email: string, password: string) {
-    let user: UserEntity;
-    try {
-      user = await this.userService.findByEmail(email);
-    } catch (error) {
-      return null;
+    const user = await this.userService.findByEmail(email);
+
+    if (!user) {
+      throw new HttpException(
+        errorsMessages.USER_NOT_FOUND,
+        HttpStatus.BAD_REQUEST,
+      );
     }
 
     const isPasswordValid = compareSync(password, user.password);
-    if (!isPasswordValid) return null;
+    if (!isPasswordValid) {
+      throw new HttpException(
+        errorsMessages.LOGIN_INVALID,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
 
     return user;
   }

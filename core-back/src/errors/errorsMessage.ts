@@ -37,4 +37,5 @@ export default {
   SYNC_USER_DATA_WITH_VTEX:
     'Erro ao realizar o sync de dados do usuário no login:',
   AFFILIATE_NOT_FOUND: 'Afiliado não encontrado',
+  LAVOURA_NOT_FOUND: 'Lavoura não encontada',
 };

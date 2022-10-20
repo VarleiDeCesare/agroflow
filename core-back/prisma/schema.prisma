@@ -3,11 +3,11 @@ generator client {
 }
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://admin:admin@localhost:5432/agrotehc?schema=public"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-  id         String   @id @default(uuid())
+  id         String  @id @default(uuid()) @db.Uuid
   name       String?
   surname    String?
   email      String   @unique
@@ -15,6 +15,19 @@ model User {
   cpf        String?
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-
+  lavoura Lavoura[]
   @@map("users")
+}
+model Lavoura {
+  id         String   @id @default(uuid())
+  titulo String
+  descricao String?
+  qnt_hectares Float?
+  localidade String?
+  user_id String @db.Uuid
+  user User @relation(fields: [user_id], references: [id])
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("lavouras")
 }
