@@ -1,3 +1,4 @@
+import { JwtPayloadDto } from './../auth/dto/jwt-payload.dto';
 import { Inject, Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { CreateLavouraDto } from './dto/create-lavoura.dto';
 import { UpdateLavouraDto } from './dto/update-lavoura.dto';
@@ -10,11 +11,12 @@ export class LavourasService {
     @Inject('LavourasRepository')
     private readonly lavourasRepository: ILavourasRepository,
   ) {}
-  async create(data: CreateLavouraDto): Promise<Lavoura> {
+  async create(user: JwtPayloadDto, data: CreateLavouraDto): Promise<Lavoura> {
+    data.user_id = user.id;
     return this.lavourasRepository.create(data);
   }
 
-  async findAll(userId: string): Promise<Lavoura> {
+  async findAll(userId: string): Promise<Lavoura[]> {
     return this.lavourasRepository.findAll(userId);
   }
 

@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { UserModule } from './modules/users/user.module';
 import { PrismaModule } from './modules/prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
@@ -8,6 +6,9 @@ import { AuthModule } from './modules/auth/auth.module';
 import { AuthController } from './modules/auth/auth.controller';
 import { UserController } from './modules/users/user.controller';
 import { LavourasModule } from './modules/lavouras/lavouras.module';
+import { TipoProdutoModule } from './modules/tipo-produto/tipo-produto.module';
+import { CulturaModule } from './modules/cultura/cultura.module';
+import { ProdutoModule } from './modules/produto/produto.module';
 
 @Module({
   imports: [
@@ -16,8 +17,11 @@ import { LavourasModule } from './modules/lavouras/lavouras.module';
     UserModule,
     AuthModule,
     LavourasModule,
+    TipoProdutoModule,
+    CulturaModule,
+    ProdutoModule,
   ],
-  controllers: [AppController, AuthController, UserController],
-  providers: [AppService],
+  controllers: [AuthController, UserController],
+  providers: [],
 })
 export class AppModule {}

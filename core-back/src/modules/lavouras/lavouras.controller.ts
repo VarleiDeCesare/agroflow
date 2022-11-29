@@ -22,10 +22,7 @@ export class LavourasController {
 
   @Post()
   create(@Body() data: CreateLavouraDto, @CurrentUser() user: JwtPayloadDto) {
-    data.user_id = user.id;
-    console.log(data);
-
-    return this.lavouraService.create(data);
+    return this.lavouraService.create(user, data);
   }
 
   @Get()

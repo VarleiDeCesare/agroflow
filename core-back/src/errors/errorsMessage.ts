@@ -38,4 +38,7 @@ export default {
     'Erro ao realizar o sync de dados do usuário no login:',
   AFFILIATE_NOT_FOUND: 'Afiliado não encontrado',
   LAVOURA_NOT_FOUND: 'Lavoura não encontada',
+  TIPO_PRODUTO_NOT_FOUND: 'Tipo do produto não foi encontrado',
+  CULTURA_NOT_FOUND: 'Cultura não foi encontrada',
+  PRODUTO_NOT_FOUND: 'Produto não foi encontrado',
 };

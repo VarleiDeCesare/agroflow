@@ -19,15 +19,46 @@ model User {
   @@map("users")
 }
 model Lavoura {
-  id         String   @id @default(uuid())
+  id String @id @db.Uuid @default(uuid()) 
   titulo String
   descricao String?
   qnt_hectares Float?
   localidade String?
   user_id String @db.Uuid
-  user User @relation(fields: [user_id], references: [id])
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
   @@map("lavouras")
+}
+
+model TipoProduto {
+  id String @id @db.Uuid @default(uuid()) 
+  nome String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  produto Produto[]
+  @@map("tipo_produtos")
+}
+
+model Cultura {
+  id String @id @db.Uuid @default(uuid()) 
+  nome String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("culturas")
+}
+
+model Produto {
+  id String @id @db.Uuid @default(uuid()) 
+  nome String
+  descricao String?
+  unidade_medida String
+  tipo_produto_id String @db.Uuid
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  tipoProduto TipoProduto @relation(fields: [tipo_produto_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("produtos")
 }
