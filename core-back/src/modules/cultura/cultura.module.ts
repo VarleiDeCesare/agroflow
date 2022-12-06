@@ -12,5 +12,6 @@ import { CulturaController } from './cultura.controller';
       useClass: PrismaCulturaRepository,
     },
   ],
+  exports: [CulturaService],
 })
 export class CulturaModule {}

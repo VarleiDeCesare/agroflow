@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
-import { PrismaUsersRepository } from './repositories/prisma-users.repository';
+import { PrismaUsersRepository } from './repositories/implementations/prisma-users.repository';
 import HashProvider from 'src/providers/HashProvider';
 
 @Module({

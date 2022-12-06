@@ -151,4 +151,16 @@ export class UserService {
     await this.findOne(id);
     await this.userRepository.delete(id);
   }
+
+  public async getAuthenticatedUserData(id: string) {
+    const user = await this.findOne(id);
+
+    const response = {
+      ...user,
+    };
+
+    delete user.password;
+
+    return response;
+  }
 }

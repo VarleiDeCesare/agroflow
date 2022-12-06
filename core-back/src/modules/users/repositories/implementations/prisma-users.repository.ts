@@ -1,9 +1,9 @@
-import IUsersRepository from './users-repository.interface';
-import { PrismaService } from '../../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
-import { CreateUserDto } from '../dto/create-user.dto';
-import { UpdateUserDto } from '../dto/update-user.dto';
+import { PrismaService } from 'src/modules/prisma/prisma.service';
+import { CreateUserDto } from '../../dto/create-user.dto';
+import { UpdateUserDto } from '../../dto/update-user.dto';
+import IUsersRepository from '../users-repository.interface';
 
 @Injectable()
 export class PrismaUsersRepository implements IUsersRepository {
@@ -37,7 +37,7 @@ export class PrismaUsersRepository implements IUsersRepository {
   }
 
   async delete(id: string): Promise<void> {
-    this.prismaService.user.delete({
+    await this.prismaService.user.delete({
       where: { id },
     });
   }

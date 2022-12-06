@@ -13,8 +13,12 @@ export class AuthService {
 
   async login(user) {
     const payload = { sub: user.id, email: user.email };
+
+    //FIXME: Apenas para dev
     return {
-      token: this.jwtService.sign(payload),
+      token: this.jwtService.sign(payload, {
+        expiresIn: '30d',
+      }),
     };
   }
 

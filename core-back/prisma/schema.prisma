@@ -16,6 +16,7 @@ model User {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   lavoura Lavoura[]
+  empreendimento Empreendimento[]
   @@map("users")
 }
 model Lavoura {
@@ -28,7 +29,7 @@ model Lavoura {
   user User @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-
+  empreendimento Empreendimento[]
   @@map("lavouras")
 }
 
@@ -46,7 +47,7 @@ model Cultura {
   nome String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-
+  empreendimento Empreendimento[]
   @@map("culturas")
 }
 
@@ -61,4 +62,20 @@ model Produto {
   tipoProduto TipoProduto @relation(fields: [tipo_produto_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@map("produtos")
+}
+
+model Empreendimento {
+  id String @id @db.Uuid @default(uuid()) 
+  nome_complementar String?
+  safra_temporada String
+  cultura_id String @db.Uuid
+  lavoura_id String @db.Uuid
+  user_id String @db.Uuid
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  cultura Cultura @relation(fields: [cultura_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  lavoura Lavoura @relation(fields: [lavoura_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  
+  @@map("empreendimentos")
 }

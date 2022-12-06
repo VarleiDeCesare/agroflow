@@ -12,6 +12,9 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
+import { CurrentUser } from 'src/decorators/current-user.decorator';
+import { JwtPayloadDto } from '../auth/dto/jwt-payload.dto';
 
 @Controller('users')
 @UseGuards(AuthGuard('jwt'))
@@ -36,5 +39,14 @@ export class UserController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.userService.remove(id);
+  }
+
+  @ApiOperation({ summary: 'Pega os dados do usuário' })
+  @ApiOkResponse({
+    description: 'Dados do usuário',
+  })
+  @Get('/me')
+  public async getUserData(@CurrentUser() currentUser: JwtPayloadDto) {
+    return this.userService.getAuthenticatedUserData(currentUser.id);
   }
 }

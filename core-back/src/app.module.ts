@@ -9,6 +9,7 @@ import { LavourasModule } from './modules/lavouras/lavouras.module';
 import { TipoProdutoModule } from './modules/tipo-produto/tipo-produto.module';
 import { CulturaModule } from './modules/cultura/cultura.module';
 import { ProdutoModule } from './modules/produto/produto.module';
+import { EmpreedimentosModule } from './modules/empreedimentos/empreedimentos.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ProdutoModule } from './modules/produto/produto.module';
     TipoProdutoModule,
     CulturaModule,
     ProdutoModule,
+    EmpreedimentosModule,
   ],
   controllers: [AuthController, UserController],
   providers: [],

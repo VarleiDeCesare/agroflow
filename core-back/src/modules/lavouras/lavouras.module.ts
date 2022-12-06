@@ -12,5 +12,6 @@ import { LavourasController } from './lavouras.controller';
       useClass: PrismaLavouraRepository,
     },
   ],
+  exports: [LavourasService],
 })
 export class LavourasModule {}
