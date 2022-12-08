@@ -10,6 +10,7 @@ import { TipoProdutoModule } from './modules/tipo-produto/tipo-produto.module';
 import { CulturaModule } from './modules/cultura/cultura.module';
 import { ProdutoModule } from './modules/produto/produto.module';
 import { EmpreedimentosModule } from './modules/empreedimentos/empreedimentos.module';
+import { AplicacaoProdutosModule } from './modules/aplicacao-produtos/aplicacao-produtos.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { EmpreedimentosModule } from './modules/empreedimentos/empreedimentos.mo
     CulturaModule,
     ProdutoModule,
     EmpreedimentosModule,
+    AplicacaoProdutosModule,
   ],
   controllers: [AuthController, UserController],
   providers: [],

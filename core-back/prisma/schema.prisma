@@ -17,6 +17,7 @@ model User {
   updated_at DateTime @updatedAt
   lavoura Lavoura[]
   empreendimento Empreendimento[]
+  aplicacaoProduto AplicacaoProduto[]
   @@map("users")
 }
 model Lavoura {
@@ -60,6 +61,7 @@ model Produto {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   tipoProduto TipoProduto @relation(fields: [tipo_produto_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  aplicacaoProduto AplicacaoProduto[]
 
   @@map("produtos")
 }
@@ -76,6 +78,21 @@ model Empreendimento {
   cultura Cultura @relation(fields: [cultura_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   lavoura Lavoura @relation(fields: [lavoura_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   user User @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  
+  aplicacaoProduto AplicacaoProduto[]
   @@map("empreendimentos")
+}
+
+model AplicacaoProduto {
+  id String @id @db.Uuid @default(uuid())  
+  user_id String @db.Uuid
+  empreendimento_id String @db.Uuid
+  produto_id String @db.Uuid
+  qnt_produto_por_hec Float?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  empreedimento Empreendimento @relation(fields: [empreendimento_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  produto Produto @relation(fields: [produto_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  
+  @@map("aplicacao_produtos")
 }

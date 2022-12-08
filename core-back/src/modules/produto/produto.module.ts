@@ -14,5 +14,6 @@ import { TipoProdutoModule } from '../tipo-produto/tipo-produto.module';
     },
   ],
   imports: [TipoProdutoModule],
+  exports: [ProdutoService],
 })
 export class ProdutoModule {}

@@ -71,7 +71,7 @@ export class PrismaEmpreedimentosRepository
     });
   }
   async findByQuery(
-    query: FindOneEmpreedimentoDto,
+    query: FindAllEmpreedimentoDto,
     userId: string,
   ): Promise<Empreedimento> {
     const prismaOptions: Prisma.EmpreendimentoFindFirstArgs = {
@@ -85,6 +85,17 @@ export class PrismaEmpreedimentosRepository
       },
     };
 
+    if (query?.cultura_id) {
+      prismaOptions.where.cultura_id = query.cultura_id;
+    }
+
+    if (query?.lavoura_id) {
+      prismaOptions.where.lavoura_id = query.lavoura_id;
+    }
+
+    if (query?.safra_temporada) {
+      prismaOptions.where.safra_temporada = query.safra_temporada;
+    }
     return this.prismaService.empreendimento.findFirst(prismaOptions);
   }
   async remove(id: string): Promise<void> {

@@ -12,7 +12,7 @@ export default interface IEmpreedimentosRepository {
     query?: FindAllEmpreedimentoDto,
   ): Promise<Empreedimento[]>;
   findByQuery(
-    query: FindOneEmpreedimentoDto,
+    query: FindAllEmpreedimentoDto,
     userId: string,
   ): Promise<Empreedimento | null>;
   remove(id: string): Promise<void>;

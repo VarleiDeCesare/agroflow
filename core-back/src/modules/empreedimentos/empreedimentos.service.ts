@@ -17,11 +17,23 @@ export class EmpreedimentosService {
     private readonly lavouraService: LavourasService,
   ) {}
   async create(user: JwtPayloadDto, data: CreateEmpreedimentoDto) {
+    const { safra_temporada, lavoura_id, cultura_id } = data;
     data.user_id = user.id;
-
     await this.culturaService.findOne(data.cultura_id);
     await this.lavouraService.findOne(data.lavoura_id);
 
+    const empreedimentoAlreadyExists =
+      await this.empreedimentosRepository.findByQuery(
+        { cultura_id, lavoura_id, safra_temporada },
+        user.id,
+      );
+
+    if (empreedimentoAlreadyExists) {
+      throw new HttpException(
+        errorsMessage.EMPREEDIMENTO_ALREADY_EXISTS,
+        HttpStatus.CONFLICT,
+      );
+    }
     return this.empreedimentosRepository.create(data);
   }
 

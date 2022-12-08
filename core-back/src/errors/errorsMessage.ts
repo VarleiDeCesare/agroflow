@@ -10,6 +10,10 @@ export default {
   CULTURA_NOT_FOUND: 'Cultura não foi encontrada',
   PRODUTO_NOT_FOUND: 'Produto não foi encontrado',
   EMPREEDIMENTO_NOT_FOUND: 'Empreedimento não foi encontrado',
+  EMPREEDIMENTO_ALREADY_EXISTS:
+    'Empreedimento já existe com esses mesmos parâmetros',
   FIND_ONE_EMPREEDIMENTO_PARAM_NOT_FOUND:
     'Não foi passado nenhum parâmetro de busca de empreendimento',
+  APLICACAO_PRODUTO_NOT_FOUND:
+    'Não foi encontrado nenhuma aplicação com esse id',
 };

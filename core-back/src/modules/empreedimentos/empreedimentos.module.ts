@@ -15,5 +15,6 @@ import { EmpreedimentosController } from './empreedimentos.controller';
     },
   ],
   imports: [LavourasModule, CulturaModule],
+  exports: [EmpreedimentosService],
 })
 export class EmpreedimentosModule {}
