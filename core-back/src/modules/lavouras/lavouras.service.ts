@@ -12,6 +12,7 @@ export class LavourasService {
     private readonly lavourasRepository: ILavourasRepository,
   ) {}
   async create(user: JwtPayloadDto, data: CreateLavouraDto): Promise<Lavoura> {
+    //FIXME: Criar regra para file_id
     data.user_id = user.id;
     return this.lavourasRepository.create(data);
   }
@@ -33,6 +34,7 @@ export class LavourasService {
   }
 
   async update(id: string, data: UpdateLavouraDto) {
+    //FIXME: Criar regra para file_id
     await this.findOne(id);
 
     return this.lavourasRepository.update(id, data);

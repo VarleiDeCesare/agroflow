@@ -6,6 +6,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model File {
+  id         String  @id @default(uuid()) @db.Uuid
+  name          String         @unique
+  originalname  String?
+  mimetype      String?
+  size          Float?
+  created_at    DateTime       @default(now())
+  updated_at    DateTime       @updatedAt
+  user User[]
+  lavoura Lavoura[]
+  cultura Cultura[]
+  produto Produto[]
+
+  @@map("files")
+}
 model User {
   id         String  @id @default(uuid()) @db.Uuid
   name       String?
@@ -13,11 +28,14 @@ model User {
   email      String   @unique
   password   String?
   cpf        String?
+  file_id    String? @db.Uuid
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   lavoura Lavoura[]
   empreendimento Empreendimento[]
   aplicacaoProduto AplicacaoProduto[]
+  file           File?     @relation(fields: [file_id], references: [id])
+
   @@map("users")
 }
 model Lavoura {
@@ -27,10 +45,13 @@ model Lavoura {
   qnt_hectares Float?
   localidade String?
   user_id String @db.Uuid
+  file_id    String? @db.Uuid
   user User @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   empreendimento Empreendimento[]
+  file           File?     @relation(fields: [file_id], references: [id])
+
   @@map("lavouras")
 }
 
@@ -48,7 +69,10 @@ model Cultura {
   nome String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+  file_id    String? @db.Uuid
+  file           File?     @relation(fields: [file_id], references: [id])
   empreendimento Empreendimento[]
+
   @@map("culturas")
 }
 
@@ -60,6 +84,8 @@ model Produto {
   tipo_produto_id String @db.Uuid
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+  file_id    String? @db.Uuid
+  file           File?     @relation(fields: [file_id], references: [id])
   tipoProduto TipoProduto @relation(fields: [tipo_produto_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   aplicacaoProduto AplicacaoProduto[]
 

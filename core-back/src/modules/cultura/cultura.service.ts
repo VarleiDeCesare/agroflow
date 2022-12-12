@@ -11,6 +11,7 @@ export class CulturaService {
     private readonly culturaRepository: ICulturaRepository,
   ) {}
   async create(data: CreateCulturaDto) {
+    //FIXME: Criar regra para file_id
     return this.culturaRepository.create(data);
   }
 
@@ -31,6 +32,7 @@ export class CulturaService {
   }
 
   async update(id: string, data: UpdateCulturaDto) {
+    //FIXME: Criar regra para file_id
     await this.findOne(id);
 
     return this.culturaRepository.update(id, data);

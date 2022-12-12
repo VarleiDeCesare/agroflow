@@ -22,6 +22,7 @@ export class UserService {
   }
 
   async create(data: CreateUserDto) {
+    //FIXME: Criar regra para file_id
     const { email, password, passwordConfirmation } = data;
 
     const userAlreadyExists = await this.userRepository.findByEmail(email);
@@ -65,6 +66,7 @@ export class UserService {
   }
 
   public async update(id: string, updateUserDto: UpdateUserDto) {
+    //FIXME: Criar regra para file_id
     const { email, password, oldPassword, passwordConfirmation } =
       updateUserDto;
 

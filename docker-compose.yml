@@ -31,6 +31,7 @@ services:
       CRYPTO_KEY: 3c6e0b8a9c15224a8228b9a98ca1531d
       CRYPTO_ENCRYPTION_ALGORITHM: aes256
       CRYPTO_ENCODING: base64
+      UPLOAD_DRIVER: disk
     depends_on:
       - postgresql-bd
   postgresql-bd:

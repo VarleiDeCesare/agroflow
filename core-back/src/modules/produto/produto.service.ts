@@ -14,6 +14,7 @@ export class ProdutoService {
   ) {}
 
   async create(data: CreateProdutoDto) {
+    //FIXME: Criar regra para file_id
     await this.tipoProdutoService.findOne(data.tipo_produto_id);
 
     return this.produtoRepository.create(data);
@@ -36,6 +37,7 @@ export class ProdutoService {
   }
 
   async update(id: string, data: UpdateProdutoDto) {
+    //FIXME: Criar regra para file_id
     if (data?.tipo_produto_id) {
       await this.tipoProdutoService.findOne(data.tipo_produto_id);
     }
