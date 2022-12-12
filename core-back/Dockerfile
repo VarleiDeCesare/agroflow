@@ -1,6 +1,6 @@
 FROM node:14-alpine
 
-LABEL maintainer="Agrotehc"
+LABEL maintainer="AgroFlow"
 
 ENV TZ=America/Sao_Paulo
 

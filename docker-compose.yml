@@ -17,8 +17,8 @@ services:
     environment:
       PORT: 3001
       FORGOT_PASSWORD_FRONT_URL:
-      ENTERPRISE_NAME: Agrotehc
-      DATABASE_URL: "postgresql://admin:admin@postgresql-bd:5432/agrotehc?schema=public"
+      ENTERPRISE_NAME: AgroFlow
+      DATABASE_URL: "postgresql://admin:admin@postgresql-bd:5432/agroflow?schema=public"
       HASH_PROVIDER: bcrypt
       JWT_EXPIRES_IN: 86400
       JWT_SECRET: hml_secret
@@ -39,10 +39,10 @@ services:
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB=agrotehc
+      - POSTGRES_DB=agroflow
     volumes:
-      - agrotehc:/var/lib/postgresql-bd/data
+      - agroflow:/var/lib/postgresql-bd/data
     ports:
       - 5432:5432
 volumes:
-  agrotehc:
+  agroflow:
