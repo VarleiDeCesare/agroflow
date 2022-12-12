@@ -12,6 +12,7 @@ import { ProdutoModule } from './modules/produto/produto.module';
 import { EmpreedimentosModule } from './modules/empreedimentos/empreedimentos.module';
 import { AplicacaoProdutosModule } from './modules/aplicacao-produtos/aplicacao-produtos.module';
 
+//FIXME: Implementar módulo de upload e colocar relação com o usuário, lavoura, cultura e produto.
 @Module({
   imports: [
     ConfigModule.forRoot(),
