@@ -17,6 +17,9 @@ export class User implements PrismaUser {
   password: string;
 
   @ApiProperty({ required: false })
+  file_id: string | null;
+
+  @ApiProperty({ required: false })
   cpf: string;
 
   @ApiProperty()

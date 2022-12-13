@@ -13,6 +13,9 @@ export class Produto implements PrismaProduto {
   @ApiProperty()
   unidade_medida: string;
 
+  @ApiProperty({ required: false })
+  file_id: string | null;
+
   @ApiProperty()
   tipo_produto_id: string;
 

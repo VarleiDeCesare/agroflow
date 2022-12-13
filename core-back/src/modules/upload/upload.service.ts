@@ -1,4 +1,3 @@
-import { resolve } from 'path';
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { Upload } from './entities/upload.entity';
 import IUploadProvider from '../../providers/upload-provider/upload-provider.interface';

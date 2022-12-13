@@ -17,6 +17,9 @@ export class Lavoura implements PrismaLavoura {
   @ApiProperty({ required: false })
   localidade: string | null;
 
+  @ApiProperty({ required: false })
+  file_id: string | null;
+
   @ApiProperty()
   user_id: string;
 

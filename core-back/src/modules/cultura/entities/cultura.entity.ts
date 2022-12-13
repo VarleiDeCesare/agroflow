@@ -7,6 +7,9 @@ export class Cultura implements PrismaCultura {
   @ApiProperty()
   nome: string;
 
+  @ApiProperty({ required: false })
+  file_id: string | null;
+
   @ApiProperty()
   created_at: Date;
 
