@@ -7,6 +7,7 @@ import IHashProvider from 'src/providers/HashProvider/hash-provider.interface';
 import { User } from './entities/user.entity';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { v4 as uuidv4 } from 'uuid';
+import { UploadService } from '../upload/upload.service';
 
 @Injectable()
 export class UserService {
@@ -15,6 +16,7 @@ export class UserService {
     private readonly userRepository: IUsersRepository,
     @Inject('HashProvider')
     private readonly hashProvider: IHashProvider,
+    private readonly uploadService: UploadService,
   ) {}
 
   public async findAll(): Promise<User[]> {
@@ -22,7 +24,10 @@ export class UserService {
   }
 
   async create(data: CreateUserDto) {
-    //FIXME: Criar regra para file_id
+    if (data?.file_id) {
+      await this.uploadService.findOne(data.file_id);
+    }
+
     const { email, password, passwordConfirmation } = data;
 
     const userAlreadyExists = await this.userRepository.findByEmail(email);
@@ -65,15 +70,20 @@ export class UserService {
     return user;
   }
 
-  public async update(id: string, updateUserDto: UpdateUserDto) {
-    //FIXME: Criar regra para file_id
-    const { email, password, oldPassword, passwordConfirmation } =
-      updateUserDto;
+  public async update(id: string, data: UpdateUserDto) {
+    const { email, password, oldPassword, passwordConfirmation } = data;
 
-    delete updateUserDto.oldPassword;
-    delete updateUserDto.passwordConfirmation;
+    delete data.oldPassword;
+    delete data.passwordConfirmation;
 
     const user: User = await this.findOne(id);
+
+    if (data?.file_id) {
+      await this.uploadService.findOne(data.file_id);
+      if (user?.file_id) {
+        await this.uploadService.remove(user.file_id);
+      }
+    }
 
     if (email && user.email !== email) {
       const userAlreadyExists = await this.userRepository.findByEmail(email);
@@ -116,12 +126,12 @@ export class UserService {
       const hashedPassword = await this.hashProvider.generateHash(password);
 
       return this.userRepository.update(id, {
-        ...updateUserDto,
+        ...data,
         password: hashedPassword,
       });
     }
 
-    const updatedUser = await this.userRepository.update(id, updateUserDto);
+    const updatedUser = await this.userRepository.update(id, data);
 
     delete updatedUser.password;
 

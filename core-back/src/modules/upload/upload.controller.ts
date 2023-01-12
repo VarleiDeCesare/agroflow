@@ -9,6 +9,7 @@ import {
   HttpException,
   HttpStatus,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { UploadService } from './upload.service';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -17,8 +18,10 @@ import { Upload } from './entities/upload.entity';
 import { Response } from 'express';
 import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { CreateUploadDto } from '../../providers/upload-provider/dto/create-upload.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('Upload')
+@UseGuards(AuthGuard('jwt'))
 @Controller()
 export class UploadController {
   constructor(private readonly uploadService: UploadService) {}

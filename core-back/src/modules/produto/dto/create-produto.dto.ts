@@ -21,4 +21,9 @@ export class CreateProdutoDto {
   @IsString()
   @IsOptional()
   descricao: string;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsUUID()
+  file_id?: string;
 }

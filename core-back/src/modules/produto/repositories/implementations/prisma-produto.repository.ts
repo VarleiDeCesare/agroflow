@@ -12,6 +12,9 @@ export class PrismaProdutoRepository implements IProdutoRepository {
   async create(data: CreateProdutoDto): Promise<Produto> {
     return this.prismaService.produto.create({
       data,
+      include: {
+        file: true,
+      },
     });
   }
 
@@ -20,6 +23,7 @@ export class PrismaProdutoRepository implements IProdutoRepository {
       where: { id },
       include: {
         tipoProduto: true,
+        file: true,
       },
     });
   }
@@ -28,6 +32,7 @@ export class PrismaProdutoRepository implements IProdutoRepository {
     return this.prismaService.produto.findMany({
       include: {
         tipoProduto: true,
+        file: true,
       },
     });
   }
@@ -36,6 +41,9 @@ export class PrismaProdutoRepository implements IProdutoRepository {
     return this.prismaService.produto.update({
       where: { id },
       data,
+      include: {
+        file: true,
+      },
     });
   }
 

@@ -1,5 +1,5 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { IsDefined, IsOptional, IsString } from 'class-validator';
+import { IsDefined, IsOptional, IsString, IsUUID } from 'class-validator';
 import { CreateProdutoDto } from './create-produto.dto';
 
 export class UpdateProdutoDto extends PartialType(CreateProdutoDto) {
@@ -21,4 +21,9 @@ export class UpdateProdutoDto extends PartialType(CreateProdutoDto) {
   @IsString()
   @IsOptional()
   descricao: string;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsUUID()
+  file_id?: string;
 }

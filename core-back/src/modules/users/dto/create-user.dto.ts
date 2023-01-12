@@ -1,8 +1,8 @@
 import {
-  IsDefined,
   IsEmail,
   IsOptional,
   IsString,
+  IsUUID,
   Matches,
   MaxLength,
   MinLength,
@@ -43,4 +43,9 @@ export class CreateUserDto {
   @IsCpf()
   @IsOptional()
   cpf?: string;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsUUID()
+  file_id?: string;
 }

@@ -3,15 +3,20 @@ import { Inject, Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { CreateCulturaDto } from './dto/create-cultura.dto';
 import { UpdateCulturaDto } from './dto/update-cultura.dto';
 import ICulturaRepository from './repositories/cultura-repository.interface';
+import { UploadService } from '../upload/upload.service';
 
 @Injectable()
 export class CulturaService {
   constructor(
     @Inject('CulturaRepository')
     private readonly culturaRepository: ICulturaRepository,
+    private readonly uploadService: UploadService,
   ) {}
   async create(data: CreateCulturaDto) {
-    //FIXME: Criar regra para file_id
+    if (data?.file_id) {
+      await this.uploadService.findOne(data.file_id);
+    }
+
     return this.culturaRepository.create(data);
   }
 
@@ -32,8 +37,14 @@ export class CulturaService {
   }
 
   async update(id: string, data: UpdateCulturaDto) {
-    //FIXME: Criar regra para file_id
-    await this.findOne(id);
+    const cultura = await this.findOne(id);
+
+    if (data?.file_id) {
+      await this.uploadService.findOne(data.file_id);
+      if (cultura?.file_id) {
+        await this.uploadService.remove(cultura.file_id);
+      }
+    }
 
     return this.culturaRepository.update(id, data);
   }

@@ -5,14 +5,19 @@ import { UpdateLavouraDto } from './dto/update-lavoura.dto';
 import { Lavoura } from './entities/lavoura.entity';
 import ILavourasRepository from './repositories/lavoura-repository.interface';
 import errorsMessages from '../../errors/errorsMessage';
+import { UploadService } from '../upload/upload.service';
 @Injectable()
 export class LavourasService {
   constructor(
     @Inject('LavourasRepository')
     private readonly lavourasRepository: ILavourasRepository,
+    private readonly uploadService: UploadService,
   ) {}
   async create(user: JwtPayloadDto, data: CreateLavouraDto): Promise<Lavoura> {
-    //FIXME: Criar regra para file_id
+    if (data?.file_id) {
+      await this.uploadService.findOne(data.file_id);
+    }
+
     data.user_id = user.id;
     return this.lavourasRepository.create(data);
   }
@@ -34,8 +39,14 @@ export class LavourasService {
   }
 
   async update(id: string, data: UpdateLavouraDto) {
-    //FIXME: Criar regra para file_id
-    await this.findOne(id);
+    const lavoura = await this.findOne(id);
+
+    if (data?.file_id) {
+      await this.uploadService.findOne(data.file_id);
+      if (lavoura?.file_id) {
+        await this.uploadService.remove(lavoura.file_id);
+      }
+    }
 
     return this.lavourasRepository.update(id, data);
   }

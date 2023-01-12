@@ -14,6 +14,9 @@ export class PrismaLavouraRepository implements ILavourasRepository {
       where: {
         user_id: userId,
       },
+      include: {
+        file: true,
+      },
     });
   }
 
@@ -22,16 +25,28 @@ export class PrismaLavouraRepository implements ILavourasRepository {
       where: {
         id,
       },
+      include: {
+        file: true,
+      },
     });
   }
+
   async create(data: CreateLavouraDto): Promise<Lavoura> {
-    return this.prismaService.lavoura.create({ data });
+    return this.prismaService.lavoura.create({
+      data,
+      include: {
+        file: true,
+      },
+    });
   }
 
   async update(id: string, data: UpdateLavouraDto): Promise<Lavoura> {
     return this.prismaService.lavoura.update({
       where: { id },
       data,
+      include: {
+        file: true,
+      },
     });
   }
 

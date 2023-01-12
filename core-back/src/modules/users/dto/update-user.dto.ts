@@ -4,6 +4,7 @@ import {
   IsEmail,
   IsOptional,
   IsString,
+  IsUUID,
   Matches,
   MaxLength,
   MinLength,
@@ -34,4 +35,9 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
   @IsString()
   @IsOptional()
   passwordConfirmation?: string;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsUUID()
+  file_id?: string;
 }

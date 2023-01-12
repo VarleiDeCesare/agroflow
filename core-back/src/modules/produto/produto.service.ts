@@ -4,6 +4,7 @@ import { Inject, Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { CreateProdutoDto } from './dto/create-produto.dto';
 import { UpdateProdutoDto } from './dto/update-produto.dto';
 import IProdutoRepository from './repositories/produto-repository.interface';
+import { UploadService } from '../upload/upload.service';
 
 @Injectable()
 export class ProdutoService {
@@ -11,10 +12,13 @@ export class ProdutoService {
     @Inject('ProdutoRepository')
     private readonly produtoRepository: IProdutoRepository,
     private readonly tipoProdutoService: TipoProdutoService,
+    private readonly uploadService: UploadService,
   ) {}
 
   async create(data: CreateProdutoDto) {
-    //FIXME: Criar regra para file_id
+    if (data?.file_id) {
+      await this.uploadService.findOne(data.file_id);
+    }
     await this.tipoProdutoService.findOne(data.tipo_produto_id);
 
     return this.produtoRepository.create(data);
@@ -37,12 +41,18 @@ export class ProdutoService {
   }
 
   async update(id: string, data: UpdateProdutoDto) {
-    //FIXME: Criar regra para file_id
     if (data?.tipo_produto_id) {
       await this.tipoProdutoService.findOne(data.tipo_produto_id);
     }
 
-    await this.findOne(id);
+    const produto = await this.findOne(id);
+
+    if (data?.file_id) {
+      await this.uploadService.findOne(data.file_id);
+      if (produto?.file_id) {
+        await this.uploadService.remove(produto.file_id);
+      }
+    }
 
     return this.produtoRepository.update(id, data);
   }

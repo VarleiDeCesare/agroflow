@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDefined, IsOptional } from 'class-validator';
+import { IsDefined, IsOptional, IsUUID } from 'class-validator';
 
 export class CreateLavouraDto {
   @ApiProperty({ required: false })
@@ -17,6 +17,11 @@ export class CreateLavouraDto {
   @ApiProperty({ required: false })
   @IsOptional()
   localidade?: string;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsUUID()
+  file_id?: string;
 
   user_id: string;
 }
