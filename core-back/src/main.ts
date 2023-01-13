@@ -19,7 +19,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
   //FIXME: Apenas para desenvolvimento
-  await app.listen(3001, async () => {
+  await app.listen(3000, async () => {
     const axiosInstance = axios.create({
       baseURL: `http://localhost:3001/`,
       headers: {
