@@ -21,11 +21,11 @@ import { CreateUploadDto } from '../../providers/upload-provider/dto/create-uplo
 import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('Upload')
-@UseGuards(AuthGuard('jwt'))
 @Controller()
 export class UploadController {
   constructor(private readonly uploadService: UploadService) {}
 
+  @UseGuards(AuthGuard('jwt'))
   @Post('upload')
   @UseInterceptors(
     FileInterceptor('file', {
@@ -71,6 +71,7 @@ export class UploadController {
     return this.uploadService.create(file);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get('upload/:id')
   public async findOne(@Param('id') id: string): Promise<Upload> {
     return this.uploadService.findOne(id);
@@ -87,6 +88,7 @@ export class UploadController {
     stream.pipe(response);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Delete('upload/:id')
   public async remove(@Param('id') id: string): Promise<void> {
     return this.uploadService.remove(id);
