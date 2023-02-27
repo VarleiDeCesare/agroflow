@@ -31,7 +31,7 @@ export class UploadController {
     FileInterceptor('file', {
       storage: memoryStorage(),
       limits: {
-        fileSize: 1 * 1024 * 1024, // 1MB permitido
+        fileSize: 5 * 1024 * 1024, // 1MB permitido
       },
       fileFilter: (_, file, cb) => {
         const extensionsAllowed = ['jpg', 'jpeg', 'webp', 'gif', 'png'];
