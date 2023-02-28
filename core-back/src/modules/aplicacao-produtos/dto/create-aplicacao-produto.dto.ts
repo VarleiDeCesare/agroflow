@@ -17,5 +17,10 @@ export class CreateAplicacaoProdutoDto {
   @IsDefined()
   qnt_produto_por_hec: number;
 
+  @ApiProperty()
+  @IsNumber()
+  @IsDefined()
+  valor_unitario: number;
+
   user_id: string;
 }

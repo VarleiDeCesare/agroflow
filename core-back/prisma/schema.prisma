@@ -3,7 +3,7 @@ generator client {
 }
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgresql://admin:admin@localhost:5432/agroflow?schema=public"
 }
 
 model File {
@@ -114,6 +114,7 @@ model AplicacaoProduto {
   empreendimento_id String @db.Uuid
   produto_id String @db.Uuid
   qnt_produto_por_hec Float?
+  valor_unitario Float?
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   user User @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)

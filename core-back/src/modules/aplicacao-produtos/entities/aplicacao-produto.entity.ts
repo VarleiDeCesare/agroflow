@@ -17,6 +17,9 @@ export class AplicacaoProduto {
   qnt_produto_por_hec: number;
 
   @ApiProperty()
+  valor_unitario: number;
+
+  @ApiProperty()
   created_at: Date;
 
   @ApiProperty()
