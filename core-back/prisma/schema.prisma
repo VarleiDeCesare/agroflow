@@ -3,7 +3,7 @@ generator client {
 }
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://admin:admin@localhost:5432/agroflow?schema=public"
+  url      = env("DATABASE_URL")
 }
 
 model File {
