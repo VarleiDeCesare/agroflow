@@ -22,8 +22,16 @@ export class PrismaEmpreedimentosRepository
         user_id: userId,
       },
       include: {
-        lavoura: true,
-        cultura: true,
+        lavoura: {
+          include: {
+            file: true,
+          },
+        },
+        cultura: {
+          include: {
+            file: true,
+          },
+        },
         user: true,
       },
     };
