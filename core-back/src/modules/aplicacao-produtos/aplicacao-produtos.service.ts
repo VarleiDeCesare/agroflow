@@ -6,6 +6,7 @@ import { Inject, Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { CreateAplicacaoProdutoDto } from './dto/create-aplicacao-produto.dto';
 import { UpdateAplicacaoProdutoDto } from './dto/update-aplicacao-produto.dto';
 import IAplicacaoProdutoRepository from './repositories/aplicacao-produto-repository.interface';
+import { FindAllAplicacaoProduto } from './dto/find-all-aplicacao-produtos.dto';
 
 @Injectable()
 export class AplicacaoProdutosService {
@@ -25,8 +26,8 @@ export class AplicacaoProdutosService {
     return this.aplicacaoProdutoRepository.create(data);
   }
 
-  async findAll(user: JwtPayloadDto) {
-    return this.aplicacaoProdutoRepository.findAll(user.id);
+  async findAll(user: JwtPayloadDto, query?: FindAllAplicacaoProduto) {
+    return this.aplicacaoProdutoRepository.findAll(user.id, query);
   }
 
   async findOne(id: string) {

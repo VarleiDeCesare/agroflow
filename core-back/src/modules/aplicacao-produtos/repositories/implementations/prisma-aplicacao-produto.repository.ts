@@ -4,6 +4,8 @@ import { PrismaService } from 'src/modules/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import IAplicacaoProdutoRepository from '../aplicacao-produto-repository.interface';
 import { CreateAplicacaoProdutoDto } from '../../dto/create-aplicacao-produto.dto';
+import { Prisma } from '@prisma/client';
+import { FindAllAplicacaoProduto } from '../../dto/find-all-aplicacao-produtos.dto';
 
 @Injectable()
 export class PrismaAplicacaoProdutoRepository
@@ -39,8 +41,11 @@ export class PrismaAplicacaoProdutoRepository
     });
   }
 
-  async findAll(userId: string): Promise<AplicacaoProduto[]> {
-    return this.prismaService.aplicacaoProduto.findMany({
+  async findAll(
+    userId: string,
+    query?: FindAllAplicacaoProduto,
+  ): Promise<AplicacaoProduto[]> {
+    const prismaOptions: Prisma.AplicacaoProdutoFindManyArgs = {
       include: {
         empreedimento: true,
         produto: {
@@ -52,7 +57,13 @@ export class PrismaAplicacaoProdutoRepository
       where: {
         user_id: userId,
       },
-    });
+    };
+
+    if (query?.empreendimento_id) {
+      prismaOptions.where.empreendimento_id = query.empreendimento_id;
+    }
+
+    return this.prismaService.aplicacaoProduto.findMany(prismaOptions);
   }
 
   async update(

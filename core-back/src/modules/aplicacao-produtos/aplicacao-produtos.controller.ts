@@ -10,6 +10,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { AplicacaoProdutosService } from './aplicacao-produtos.service';
 import { CreateAplicacaoProdutoDto } from './dto/create-aplicacao-produto.dto';
@@ -23,6 +24,7 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
+import { FindAllAplicacaoProduto } from './dto/find-all-aplicacao-produtos.dto';
 
 @ApiTags('Aplicação de produtos')
 @Controller('aplicacao-produtos')
@@ -48,8 +50,11 @@ export class AplicacaoProdutosController {
 
   @ApiOperation({ summary: 'Listagem de aplicações de produtos' })
   @Get()
-  findAll(@CurrentUser() user: JwtPayloadDto) {
-    return this.aplicacaoProdutosService.findAll(user);
+  findAll(
+    @CurrentUser() user: JwtPayloadDto,
+    @Query() query?: FindAllAplicacaoProduto,
+  ) {
+    return this.aplicacaoProdutosService.findAll(user, query);
   }
 
   @ApiOperation({ summary: 'Busca de aplicação de produto por id' })
