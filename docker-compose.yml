@@ -18,7 +18,7 @@ services:
       PORT: 3001
       FORGOT_PASSWORD_FRONT_URL:
       ENTERPRISE_NAME: AgroFlow
-      DATABASE_URL: "postgresql://admin:admin@postgresql-bd:5432/agroflow?schema=public"
+      DATABASE_URL: "postgresql://admin:admin@postgresql-bd:5432/agroflow?schema=public&connect_timeout=300"
       HASH_PROVIDER: bcrypt
       JWT_EXPIRES_IN: 86400
       JWT_SECRET: hml_secret
