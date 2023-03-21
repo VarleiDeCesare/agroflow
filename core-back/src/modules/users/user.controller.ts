@@ -26,10 +26,10 @@ import { User } from './entities/user.entity';
 
 @ApiTags('Usuários')
 @Controller('users')
-@UseGuards(AuthGuard('jwt'))
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: 'Listagem de usuários' })
   @Get()
   findAll() {
@@ -46,6 +46,7 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: 'Atualização de dados do usuário' })
   @ApiOkResponse({
     type: User,
@@ -61,6 +62,7 @@ export class UserController {
     return this.userService.update(id, updateUserDto);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: 'Deleção do usuário' })
   @ApiNoContentResponse()
   @ApiParam({
@@ -73,6 +75,7 @@ export class UserController {
     return this.userService.remove(id);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: 'Pega os dados do usuário' })
   @ApiOkResponse({
     description: 'Dados do usuário',
