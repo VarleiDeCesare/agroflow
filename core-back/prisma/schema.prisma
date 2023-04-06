@@ -98,6 +98,8 @@ model Empreendimento {
   safra_temporada String
   cultura_id String @db.Uuid
   lavoura_id String @db.Uuid
+  data_inicio DateTime?
+  qnt_hectares Float?
   user_id String @db.Uuid
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

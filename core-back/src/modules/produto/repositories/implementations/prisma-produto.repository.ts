@@ -14,6 +14,7 @@ export class PrismaProdutoRepository implements IProdutoRepository {
       data,
       include: {
         file: true,
+        tipoProduto: true,
       },
     });
   }
