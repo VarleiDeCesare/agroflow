@@ -14,6 +14,12 @@ export class Empreedimento implements PrismaEmpreendimento {
   cultura_id: string;
 
   @ApiProperty()
+  data_inicio: Date;
+
+  @ApiProperty()
+  qnt_hectares: number;
+
+  @ApiProperty()
   lavoura_id: string;
 
   @ApiProperty()
