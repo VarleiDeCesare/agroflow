@@ -36,7 +36,6 @@ export class CreateEmpreedimentoDto {
 
   @ApiProperty()
   @IsDefined()
-  @IsDate()
   data_inicio: Date;
 
   @ApiProperty()
