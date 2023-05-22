@@ -62,10 +62,16 @@ export class PrismaAplicacaoProdutoRepository
     if (query?.empreendimento_id) {
       prismaOptions.where.empreendimento_id = query.empreendimento_id;
     }
+
     if (query?.cultura_id) {
+      prismaOptions.where.empreedimento =
+        prismaOptions.where.empreedimento || {};
       prismaOptions.where.empreedimento.cultura_id = query.cultura_id;
     }
+
     if (query?.safra_temporada) {
+      prismaOptions.where.empreedimento =
+        prismaOptions.where.empreedimento || {};
       prismaOptions.where.empreedimento.safra_temporada = query.safra_temporada;
     }
 
