@@ -19,6 +19,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
   //FIXME: Apenas para desenvolvimento
+
+  app.enableCors();
   await app.listen(process.env.PORT || 3001, async () => {
     const axiosInstance = axios.create({
       baseURL: `http://localhost:3001/`,
